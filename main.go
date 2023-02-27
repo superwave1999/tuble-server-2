@@ -21,10 +21,7 @@ func main() {
 	if err != nil {
 		log.Println("Warn: .env file not found! Using OS values or fallback values.")
 	}
-	err = os.Mkdir("storage", 0750)
-	if err != nil {
-		panic(err)
-	}
+	_ = os.Mkdir("storage", 0750)
 	config.GetGameConfig()
 	restoreOrCreateMap()
 	startCronJob()

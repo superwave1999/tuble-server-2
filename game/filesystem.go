@@ -16,7 +16,7 @@ func ReadFile() []byte {
 }
 
 func WriteFile(contents []byte) {
-	err := os.WriteFile(MapFileName, contents, 0750)
+	err := os.WriteFile(MapFileName, contents, 0640)
 	if err != nil {
 		fmt.Println(err)
 	}
