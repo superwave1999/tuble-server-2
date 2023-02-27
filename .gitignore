@@ -19,3 +19,4 @@ vendor/
 /.map_cache.json
 /.idea
 /.vscode
+/storage

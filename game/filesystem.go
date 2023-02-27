@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-const MapFileName = ".map_cache.json"
+const MapFileName = "storage/.map_cache.json"
 
 func ReadFile() []byte {
 	data, err := os.ReadFile(MapFileName)
@@ -16,7 +16,7 @@ func ReadFile() []byte {
 }
 
 func WriteFile(contents []byte) {
-	err := os.WriteFile(MapFileName, contents, 0777)
+	err := os.WriteFile(MapFileName, contents, 0750)
 	if err != nil {
 		fmt.Println(err)
 	}
