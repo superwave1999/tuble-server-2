@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  tuble-server:
+    image: "ghcr.io/superwave1999/tuble-server-2:latest"
+    container_name: tuble-server
+    hostname: tuble-server
+    restart: unless-stopped
+    networks:
+      - proxy
+    env_file: .env.example
+    volumes:
+      - /home/user/tuble-storage//:/app/storage/
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tuble-server-secure.middlewares=chain-public-site@file"
+      - "traefik.http.routers.tuble-server-secure.entrypoints=https"
+      - "traefik.http.routers.tuble-server-secure.rule=Host(`api.tuble.me`)"
+      - "traefik.http.routers.tuble-server-secure.tls=true"
+      - "traefik.http.routers.tuble-server-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.tuble-server-secure.tls.domains[0].main=api.tuble.me"
+      - "traefik.http.routers.tuble-server-secure.service=tuble-server"
+      - "traefik.http.services.tuble-server.loadbalancer.server.port=8080"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true
